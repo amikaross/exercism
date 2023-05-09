@@ -32,7 +32,6 @@ class Allergies
     end
   end
 
-
   def list
     check_allergies if @allergies.empty?
     @allergies.keys.reverse
