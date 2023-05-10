@@ -1,7 +1,12 @@
-=begin
-Write your code for the 'Hamming' exercise in this file. Make the tests in
-`hamming_test.rb` pass.
-
-To get started with TDD, see the `README.md` file in your
-`ruby/hamming` directory.
-=end
+class Hamming
+  def self.compute(strand_1, strand_2)
+    if strand_1.length != strand_2.length
+      raise ArgumentError.new
+    end
+    differences = 0
+    (0..strand_1.length - 1).each do |i|
+      differences += 1 if strand_1[i] != strand_2[i]
+    end
+    differences
+  end
+end
