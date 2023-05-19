@@ -3,7 +3,7 @@ require_relative 'tournament'
 
 class TournamentTest < Minitest::Test
   def test_just_the_header_if_no_input
-    # skip
+    skip
     input = <<~INPUT
 
     INPUT
@@ -76,7 +76,7 @@ class TournamentTest < Minitest::Test
   end
 
   def test_there_can_be_more_than_one_match
-    skip
+    # skip
     input = <<~INPUT
       Allegoric Alaskans;Blithering Badgers;win
       Allegoric Alaskans;Blithering Badgers;win
