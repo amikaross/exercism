@@ -11,11 +11,11 @@ class Tournament
         teams[line[0]] ? teams[line[0]][0] += 1 : teams[line[0]] = [1, 0, 0]
         teams[line[1]] ? teams[line[1]][1] += 1 : teams[line[1]] = [0, 1, 0]
       elsif line[2] == "loss"
+        teams[line[1]] ? teams[line[1]][0] += 1 : teams[line[1]] = [1, 0, 0]
         teams[line[0]] ? teams[line[0]][1] += 1 : teams[line[0]] = [0, 1, 0]
-        teams[line[1]] ? teams[line[1]][0] += 1 : teams[line[0]] = [1, 0, 0]
       else
         teams[line[0]] ? teams[line[0]][2] += 1 : teams[line[0]] = [0, 0, 1]
-        teams[line[1]] ? teams[line[1]][2] += 1 : teams[line[0]] = [0, 0, 1]
+        teams[line[1]] ? teams[line[1]][2] += 1 : teams[line[1]] = [0, 0, 1]
       end
     end
 
@@ -23,12 +23,19 @@ class Tournament
       Team                           | MP |  W |  D |  L |  P
     TALLY
 
+    teams.map { |_, games| games << (games[0] * 3) + (games[2]) }
+    teams = teams.sort_by { |name, games| [-games[3], name] }
+
     teams.each do |team_name, games|
-      output << "\n#{team_name}"
+      output << "#{team_name}"
       (31 - team_name.length).times do 
         output << " "
       end
-      output << "|  #{games.sum} |  #{games[0]} |  #{games[2]} |  #{games[1]} |  #{(games[0] * 3) + (games[2])}"
+      if games[3] < 10
+        output << "|  #{games[0..2].sum} |  #{games[0]} |  #{games[2]} |  #{games[1]} |  #{games[3]}\n"
+      else
+        output << "|  #{games[0..2].sum} |  #{games[0]} |  #{games[2]} |  #{games[1]} | #{games[3]}\n"
+      end
     end
     output
   end
