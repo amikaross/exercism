@@ -15,6 +15,10 @@ class SpaceAge
 
   def method_missing(m)
     planet = m.to_s[3..-1]
-    (@seconds / (31557600*@orbits[planet])).round(2)
+    if m[0..2] != "on_" || !@orbits.keys.include?(planet)
+      super
+    else
+      (@seconds / (31557600*@orbits[planet])).round(2)
+    end
   end
 end
