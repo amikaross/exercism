@@ -17,8 +17,4 @@ class SpaceAge
     planet = m.to_s[3..-1]
     (@seconds / (31557600*@orbits[planet])).round(2)
   end
-
-  def calculate(planet)
-    (@seconds / (31557600*@orbits[planet])).round(2)
-  end
 end
