@@ -1,35 +1,24 @@
-# for it to be a triangle at all:
-# a + b ≥ c
-# b + c ≥ a
-# a + c ≥ b
-
-# An _equilateral_ triangle has all three sides the same length.
-
-# An _isosceles_ triangle has at least two sides the same length.
-# (It is sometimes specified as having exactly two sides the same length, but for the purposes of this exercise we'll say at least two.)
-
-# A _scalene_ triangle has all sides of different lengths.
-
 class Triangle
   def initialize(sides)
-    @a = sides[0]
-    @b = sides[1]
-    @c = sides[2]
+    @sides = sides
   end
 
   def equilateral?
-    @a == @b && @b == @c && @a != 0
+    @sides.uniq.count == 1 && triangle?
   end
 
   def isosceles?
-    (@a == @b || @b == @c || @a == @c) && triangle?
+    @sides.uniq.count <= 2 && triangle?
   end
 
   def scalene?
-    @a != @b && @b != @c && @a != @c && triangle?
+    @sides.uniq.count == 3 && triangle?
   end
 
-  def triangle?
-    (@a + @b >= @c) && (@b + @c >= @a) && (@a + @c >= @b)
-  end
+  private
+
+    def triangle?
+      sum = @sides.sum
+      @sides.all? { |side| (side <= (sum - side)) && side > 0 }
+    end
 end
