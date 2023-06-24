@@ -18,7 +18,9 @@ class Triangle
   private
 
     def triangle?
-      sum = @sides.sum
-      @sides.all? { |side| (side <= (sum - side)) && side > 0 }
+      @triangle ||= begin
+        sum = @sides.sum
+        @sides.all? { |side| (side <= (sum - side)) && side > 0 }
+      end
     end
 end
