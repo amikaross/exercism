@@ -16,7 +16,7 @@ class Allergies
 
   def allergic_to?(string)
     check_allergies if @allergies.empty?
-    @allergies[string] ? true : false
+    @allergies[string]
   end
 
   def check_allergies
